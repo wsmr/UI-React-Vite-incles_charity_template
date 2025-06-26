@@ -1,0 +1,90 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://incles.org/sitemap.xml
+
+# Crawl delay for respectful crawling
+Crawl-delay: 1
+
+# Allow all major search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+# Block access to admin and private areas
+Disallow: /admin/
+Disallow: /private/
+Disallow: /api/
+Disallow: /.env
+Disallow: /config/
+
+# Block access to development and staging environments
+Disallow: /dev/
+Disallow: /staging/
+Disallow: /test/
+
+# Block access to temporary files and backups
+Disallow: /*.tmp
+Disallow: /*.bak
+Disallow: /*.old
+Disallow: /*~
+
+# Block access to sensitive file types
+Disallow: /*.log
+Disallow: /*.sql
+Disallow: /*.zip
+Disallow: /*.tar.gz
+
+# Allow access to important resources
+Allow: /css/
+Allow: /js/
+Allow: /images/
+Allow: /assets/
+Allow: /fonts/
+
+# Block problematic bots
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+# Allow social media crawlers
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+# Special rules for archive.org
+User-agent: ia_archiver
+Allow: /
+Crawl-delay: 5
+
