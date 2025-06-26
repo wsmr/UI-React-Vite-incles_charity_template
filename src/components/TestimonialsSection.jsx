@@ -11,7 +11,7 @@ const TestimonialsSection = () => {
       name: "Sarah Johnson",
       role: "Volunteer Coordinator",
       location: "New York, USA",
-      image: "/src/assets/resource/testimonial-1.jpg",
+      image: "/src/assets/resource/testimonial/testimonial-1.jpg",
       rating: 5,
       text: "Working with Incles has been one of the most rewarding experiences of my life. The organization's commitment to transparency and real impact is truly inspiring. I've seen firsthand how donations are used effectively to change lives in communities around the world.",
       project: "Education Initiative"
@@ -21,7 +21,7 @@ const TestimonialsSection = () => {
       name: "Dr. Michael Chen",
       role: "Medical Director",
       location: "San Francisco, USA",
-      image: "/src/assets/resource/testimonial-2.jpg",
+      image: "/src/assets/resource/testimonial/testimonial-2.jpg",
       rating: 5,
       text: "As a healthcare professional, I appreciate Incles' evidence-based approach to addressing health challenges in underserved communities. Their mobile clinic program has brought essential medical care to thousands of people who previously had no access to healthcare.",
       project: "Mobile Medical Clinics"
@@ -31,7 +31,7 @@ const TestimonialsSection = () => {
       name: "Maria Rodriguez",
       role: "Community Leader",
       location: "Guatemala City, Guatemala",
-      image: "/src/assets/resource/testimonial-3.jpg",
+      image: "/src/assets/resource/testimonial/testimonial-3.jpg",
       rating: 5,
       text: "Incles didn't just bring resources to our community - they listened to our needs and worked with us to create sustainable solutions. The clean water project has transformed our village, and the training they provided ensures we can maintain the systems ourselves.",
       project: "Clean Water Initiative"
@@ -41,7 +41,7 @@ const TestimonialsSection = () => {
       name: "James Thompson",
       role: "Corporate Partner",
       location: "London, UK",
-      image: "/src/assets/resource/testimonial-4.jpg",
+      image: "/src/assets/resource/testimonial/testimonial-4.jpg",
       rating: 5,
       text: "Our company has partnered with Incles for three years, and we're consistently impressed by their professionalism and impact measurement. They provide detailed reports on how our contributions are making a difference, which helps us engage our employees in meaningful giving.",
       project: "Corporate Partnership"
@@ -51,7 +51,7 @@ const TestimonialsSection = () => {
       name: "Aisha Patel",
       role: "Education Advocate",
       location: "Mumbai, India",
-      image: "/src/assets/resource/testimonial-5.jpg",
+      image: "/src/assets/resource/testimonial/testimonial-5.jpg",
       rating: 5,
       text: "The digital learning centers that Incles established in our region have opened up a world of opportunities for our children. Students who never had access to computers are now learning coding and digital skills that will help them build better futures.",
       project: "Digital Learning Centers"

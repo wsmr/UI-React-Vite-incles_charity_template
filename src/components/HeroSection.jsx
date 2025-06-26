@@ -13,7 +13,7 @@ const HeroSection = () => {
       title: "Making a Difference Together",
       subtitle: "Join Our Mission to Change Lives",
       description: "Every donation, every volunteer hour, and every act of kindness creates ripples of positive change in communities around the world.",
-      image: "/src/assets/main-slider/image-1.jpg",
+      image: "/src/assets/resource/hero/image-1.jpg",
       cta: "Start Donating",
       stats: { number: "50K+", label: "Lives Changed" }
     },
@@ -22,7 +22,7 @@ const HeroSection = () => {
       title: "Education for Every Child",
       subtitle: "Building Brighter Futures",
       description: "Help us provide quality education and learning opportunities to children in underserved communities worldwide.",
-      image: "/src/assets/main-slider/image-2.jpg",
+      image: "/src/assets/resource/hero/image-2.jpg",
       cta: "Support Education",
       stats: { number: "1000+", label: "Schools Built" }
     },
@@ -31,7 +31,7 @@ const HeroSection = () => {
       title: "Clean Water for All",
       subtitle: "Essential Resources for Life",
       description: "Access to clean water is a basic human right. Join us in bringing safe, clean water to communities in need.",
-      image: "/src/assets/main-slider/image-3.jpg",
+      image: "/src/assets/resource/hero/image-3.jpg",
       cta: "Provide Water",
       stats: { number: "200+", label: "Wells Drilled" }
     }

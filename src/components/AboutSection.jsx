@@ -149,7 +149,7 @@ const AboutSection = () => {
           >
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               <img 
-                src="/src/assets/resource/image-1.jpg" 
+                src="/src/assets/resource/about/image-1.jpg"
                 alt="Our Impact" 
                 className="w-full h-96 object-cover"
               />
