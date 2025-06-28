@@ -4,6 +4,25 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 const TestimonialsSection = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0)
+  const [darkMode, setDarkMode] = useState(false)
+
+  // Check for dark mode
+  useEffect(() => {
+    const checkDarkMode = () => {
+      setDarkMode(document.documentElement.classList.contains('dark'))
+    }
+    
+    checkDarkMode()
+    
+    // Listen for dark mode changes
+    const observer = new MutationObserver(checkDarkMode)
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    })
+    
+    return () => observer.disconnect()
+  }, [])
 
   const testimonials = [
     {
@@ -90,7 +109,11 @@ const TestimonialsSection = () => {
   }
 
   return (
-    <section className="py-20 bg-gradient-to-br from-blue-50 to-purple-50">
+    <section className={`py-20 transition-all duration-300 ${
+      darkMode 
+        ? 'bg-gradient-to-br from-gray-900 to-gray-800' 
+        : 'bg-gradient-to-br from-blue-50 to-purple-50'
+    }`}>
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <motion.div
@@ -107,10 +130,14 @@ const TestimonialsSection = () => {
             </span>
             <div className="w-12 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600"></div>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+          <h2 className={`text-4xl md:text-5xl font-bold mb-6 transition-colors duration-300 ${
+            darkMode ? 'text-white' : 'text-gray-800'
+          }`}>
             Stories of Impact
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          <p className={`text-xl max-w-3xl mx-auto leading-relaxed transition-colors duration-300 ${
+            darkMode ? 'text-gray-300' : 'text-gray-600'
+          }`}>
             Hear from the people whose lives have been touched by our work - volunteers, 
             beneficiaries, partners, and supporters who are part of our global community.
           </p>
@@ -118,7 +145,9 @@ const TestimonialsSection = () => {
 
         {/* Main Testimonial Display */}
         <div className="relative max-w-6xl mx-auto">
-          <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
+          <div className={`rounded-3xl shadow-2xl overflow-hidden transition-colors duration-300 ${
+            darkMode ? 'bg-gray-800 border border-gray-700' : 'bg-white'
+          }`}>
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentTestimonial}

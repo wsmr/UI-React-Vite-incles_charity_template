@@ -1,10 +1,29 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Heart, Users, Target, Calendar, ArrowRight, DollarSign } from 'lucide-react'
 import { motion } from 'framer-motion'
 
 const CausesSection = () => {
   const [activeFilter, setActiveFilter] = useState('all')
+  const [darkMode, setDarkMode] = useState(false)
+
+  // Check for dark mode
+  useEffect(() => {
+    const checkDarkMode = () => {
+      setDarkMode(document.documentElement.classList.contains('dark'))
+    }
+    
+    checkDarkMode()
+    
+    // Listen for dark mode changes
+    const observer = new MutationObserver(checkDarkMode)
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    })
+    
+    return () => observer.disconnect()
+  }, [])
 
   const filters = [
     { id: 'all', label: 'All Causes' },
@@ -107,7 +126,9 @@ const CausesSection = () => {
   }
 
   return (
-    <section id="causes" className="py-20 bg-white">
+    <section id="causes" className={`py-20 transition-all duration-300 ${
+      darkMode ? 'bg-gray-900' : 'bg-white'
+    }`}>
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <motion.div
@@ -124,10 +145,14 @@ const CausesSection = () => {
             </span>
             <div className="w-12 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600"></div>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+          <h2 className={`text-4xl md:text-5xl font-bold mb-6 transition-colors duration-300 ${
+            darkMode ? 'text-white' : 'text-gray-800'
+          }`}>
             Make a Difference Today
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          <p className={`text-xl max-w-3xl mx-auto leading-relaxed transition-colors duration-300 ${
+            darkMode ? 'text-gray-300' : 'text-gray-600'
+          }`}>
             Every donation, no matter the size, creates ripples of positive change. 
             Choose a cause that resonates with you and help us build a better world together.
           </p>

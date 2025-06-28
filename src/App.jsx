@@ -8,6 +8,7 @@ import SEOHead, { getOrganizationStructuredData } from './components/SEOHead'
 import PerformanceOptimizer from './components/PerformanceOptimizer'
 import SecurityFeatures from './components/SecurityFeatures'
 import ModernFeatures from './components/ModernFeatures'
+import CookieConsent from './components/CookieConsent'
 import './App.css'
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
       <PerformanceOptimizer />
       <SecurityFeatures />
       <ModernFeatures />
+      <CookieConsent />
       <Header />
       <main>
         <HeroSection />

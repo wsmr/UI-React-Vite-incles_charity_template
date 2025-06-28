@@ -257,17 +257,25 @@ const ModernFeatures = () => {
     const [isOpen, setIsOpen] = useState(false)
 
     return (
-      <div className="fixed left-4 top-1/2 transform -translate-y-1/2 z-50">
+      <div className="fixed left-4 top-3/4 transform -translate-y-1/2 z-50">
         <Button
           onClick={() => setIsOpen(!isOpen)}
-          className="bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg"
+          className={`${
+            darkMode 
+              ? 'bg-gray-800 hover:bg-gray-700 text-white border border-gray-600' 
+              : 'bg-blue-600 hover:bg-blue-700 text-white'
+          } p-3 rounded-full shadow-lg transition-all duration-300`}
           aria-label="Accessibility options"
         >
           <Accessibility className="w-5 h-5" />
         </Button>
         
         {isOpen && (
-          <div className="mt-2 bg-white border rounded-lg shadow-lg p-4 w-64">
+          <div className={`mt-2 ${
+            darkMode 
+              ? 'bg-gray-800 border-gray-600 text-white' 
+              : 'bg-white border-gray-200 text-gray-900'
+          } border rounded-lg shadow-lg p-4 w-64 transition-all duration-300`}>
             <h4 className="font-semibold mb-3">Accessibility Options</h4>
             
             <div className="space-y-3">
@@ -279,7 +287,13 @@ const ModernFeatures = () => {
                       key={size}
                       onClick={() => changeFontSize(size)}
                       variant={fontSize === size ? 'default' : 'outline'}
-                      className="text-xs px-2 py-1"
+                      className={`text-xs px-2 py-1 ${
+                        darkMode 
+                          ? fontSize === size 
+                            ? 'bg-blue-600 text-white' 
+                            : 'border-gray-600 text-gray-300 hover:bg-gray-700'
+                          : ''
+                      }`}
                     >
                       {size.charAt(0).toUpperCase() + size.slice(1)}
                     </Button>
@@ -292,7 +306,13 @@ const ModernFeatures = () => {
                 <Button
                   onClick={toggleHighContrast}
                   variant={highContrast ? 'default' : 'outline'}
-                  className="text-xs px-2 py-1"
+                  className={`text-xs px-2 py-1 ${
+                    darkMode 
+                      ? highContrast 
+                        ? 'bg-blue-600 text-white' 
+                        : 'border-gray-600 text-gray-300 hover:bg-gray-700'
+                      : ''
+                  }`}
                 >
                   {highContrast ? 'On' : 'Off'}
                 </Button>
@@ -303,7 +323,11 @@ const ModernFeatures = () => {
                 <Button
                   onClick={toggleDarkMode}
                   variant="outline"
-                  className="text-xs px-2 py-1"
+                  className={`text-xs px-2 py-1 ${
+                    darkMode 
+                      ? 'border-gray-600 text-gray-300 hover:bg-gray-700'
+                      : ''
+                  }`}
                 >
                   {darkMode ? <Moon className="w-3 h-3" /> : <Sun className="w-3 h-3" />}
                 </Button>
@@ -420,35 +444,37 @@ const ModernFeatures = () => {
       <QuickActions />
       
       {/* Add CSS for accessibility features */}
-      <style jsx global>{`
-        .high-contrast {
-          filter: contrast(150%) brightness(150%);
-        }
-        
-        .font-small {
-          font-size: 14px;
-        }
-        
-        .font-normal {
-          font-size: 16px;
-        }
-        
-        .font-large {
-          font-size: 18px;
-        }
-        
-        .dark {
-          color-scheme: dark;
-        }
-        
-        @media (prefers-reduced-motion: reduce) {
-          * {
-            animation-duration: 0.01ms !important;
-            animation-iteration-count: 1 !important;
-            transition-duration: 0.01ms !important;
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          .high-contrast {
+            filter: contrast(150%) brightness(150%);
           }
-        }
-      `}</style>
+          
+          .font-small {
+            font-size: 14px;
+          }
+          
+          .font-normal {
+            font-size: 16px;
+          }
+          
+          .font-large {
+            font-size: 18px;
+          }
+          
+          .dark {
+            color-scheme: dark;
+          }
+          
+          @media (prefers-reduced-motion: reduce) {
+            * {
+              animation-duration: 0.01ms !important;
+              animation-iteration-count: 1 !important;
+              transition-duration: 0.01ms !important;
+            }
+          }
+        `
+      }} />
     </>
   )
 }

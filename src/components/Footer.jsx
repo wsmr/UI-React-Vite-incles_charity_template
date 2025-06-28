@@ -1,9 +1,29 @@
+import { useState, useEffect } from 'react'
 import { Heart, Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin, Youtube, ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
+  const [darkMode, setDarkMode] = useState(false)
+
+  // Check for dark mode
+  useEffect(() => {
+    const checkDarkMode = () => {
+      setDarkMode(document.documentElement.classList.contains('dark'))
+    }
+    
+    checkDarkMode()
+    
+    // Listen for dark mode changes
+    const observer = new MutationObserver(checkDarkMode)
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    })
+    
+    return () => observer.disconnect()
+  }, [])
 
   const footerLinks = {
     organization: [
@@ -67,7 +87,9 @@ const Footer = () => {
   ]
 
   return (
-    <footer className="bg-gray-900 text-white">
+    <footer className={`transition-all duration-300 ${
+      darkMode ? 'bg-gray-900 text-white' : 'bg-gray-900 text-white'
+    }`}>
       {/* Newsletter Section */}
       <div className="bg-gradient-to-r from-blue-600 to-purple-600 py-16">
         <div className="container mx-auto px-4">

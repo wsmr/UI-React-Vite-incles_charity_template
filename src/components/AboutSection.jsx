@@ -1,10 +1,29 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Heart, Users, Target, Award, ArrowRight, Play } from 'lucide-react'
 import { motion } from 'framer-motion'
 
 const AboutSection = () => {
   const [activeTab, setActiveTab] = useState('mission')
+  const [darkMode, setDarkMode] = useState(false)
+
+  // Check for dark mode
+  useEffect(() => {
+    const checkDarkMode = () => {
+      setDarkMode(document.documentElement.classList.contains('dark'))
+    }
+    
+    checkDarkMode()
+    
+    // Listen for dark mode changes
+    const observer = new MutationObserver(checkDarkMode)
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    })
+    
+    return () => observer.disconnect()
+  }, [])
 
   const stats = [
     {
@@ -75,7 +94,11 @@ const AboutSection = () => {
   const currentTab = tabs.find(tab => tab.id === activeTab)
 
   return (
-    <section id="about" className="py-20 bg-gradient-to-br from-gray-50 to-white">
+    <section id="about" className={`py-20 transition-all duration-300 ${
+      darkMode 
+        ? 'bg-gradient-to-br from-gray-900 to-gray-800' 
+        : 'bg-gradient-to-br from-gray-50 to-white'
+    }`}>
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <motion.div
@@ -92,10 +115,14 @@ const AboutSection = () => {
             </span>
             <div className="w-12 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600"></div>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+          <h2 className={`text-4xl md:text-5xl font-bold mb-6 transition-colors duration-300 ${
+            darkMode ? 'text-white' : 'text-gray-800'
+          }`}>
             Making a Difference Since 1999
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          <p className={`text-xl max-w-3xl mx-auto leading-relaxed transition-colors duration-300 ${
+            darkMode ? 'text-gray-300' : 'text-gray-600'
+          }`}>
             For over two decades, we've been committed to creating positive change in communities 
             around the world through sustainable programs and meaningful partnerships.
           </p>
@@ -124,13 +151,19 @@ const AboutSection = () => {
                 </div>
                 <div className="absolute inset-0 w-20 h-20 mx-auto bg-gradient-to-r from-blue-600 to-purple-600 rounded-full opacity-20 group-hover:scale-125 transition-transform duration-300"></div>
               </div>
-              <div className="text-4xl font-bold text-gray-800 mb-2">
+              <div className={`text-4xl font-bold mb-2 transition-colors duration-300 ${
+                darkMode ? 'text-white' : 'text-gray-800'
+              }`}>
                 {stat.number}
               </div>
-              <div className="text-lg font-semibold text-gray-700 mb-2">
+              <div className={`text-lg font-semibold mb-2 transition-colors duration-300 ${
+                darkMode ? 'text-gray-200' : 'text-gray-700'
+              }`}>
                 {stat.label}
               </div>
-              <div className="text-gray-600 text-sm">
+              <div className={`text-sm transition-colors duration-300 ${
+                darkMode ? 'text-gray-400' : 'text-gray-600'
+              }`}>
                 {stat.description}
               </div>
             </motion.div>
@@ -173,18 +206,26 @@ const AboutSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
               viewport={{ once: true }}
-              className="absolute -bottom-6 -right-6 bg-white rounded-xl shadow-xl p-6 max-w-xs"
+              className={`absolute -bottom-6 -right-6 rounded-xl shadow-xl p-6 max-w-xs transition-colors duration-300 ${
+                darkMode ? 'bg-gray-800 border border-gray-700' : 'bg-white'
+              }`}
             >
               <div className="flex items-center space-x-4">
                 <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center">
                   <Heart className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-gray-800">98%</div>
-                  <div className="text-gray-600 text-sm">Donation Efficiency</div>
+                  <div className={`text-2xl font-bold transition-colors duration-300 ${
+                    darkMode ? 'text-white' : 'text-gray-800'
+                  }`}>98%</div>
+                  <div className={`text-sm transition-colors duration-300 ${
+                    darkMode ? 'text-gray-400' : 'text-gray-600'
+                  }`}>Donation Efficiency</div>
                 </div>
               </div>
-              <div className="mt-3 text-gray-600 text-sm">
+              <div className={`mt-3 text-sm transition-colors duration-300 ${
+                darkMode ? 'text-gray-400' : 'text-gray-600'
+              }`}>
                 98% of donations go directly to programs
               </div>
             </motion.div>

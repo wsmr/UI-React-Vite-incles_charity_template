@@ -153,7 +153,10 @@ const SecurityFeatures = () => {
   // XSS Protection
   useEffect(() => {
     const implementXSSProtection = () => {
-      // X-XSS-Protection header (legacy but still useful)
+      // Note: Security headers should be set at the server level via HTTP headers
+      // These meta tags are kept for legacy browser support but are not the primary security mechanism
+      
+      // X-XSS-Protection header (legacy but still useful for older browsers)
       const xssProtectionMeta = document.createElement('meta')
       xssProtectionMeta.setAttribute('http-equiv', 'X-XSS-Protection')
       xssProtectionMeta.setAttribute('content', '1; mode=block')
@@ -164,12 +167,6 @@ const SecurityFeatures = () => {
       contentTypeMeta.setAttribute('http-equiv', 'X-Content-Type-Options')
       contentTypeMeta.setAttribute('content', 'nosniff')
       document.head.appendChild(contentTypeMeta)
-
-      // X-Frame-Options header
-      const frameOptionsMeta = document.createElement('meta')
-      frameOptionsMeta.setAttribute('http-equiv', 'X-Frame-Options')
-      frameOptionsMeta.setAttribute('content', 'DENY')
-      document.head.appendChild(frameOptionsMeta)
 
       // Referrer Policy
       const referrerPolicyMeta = document.createElement('meta')

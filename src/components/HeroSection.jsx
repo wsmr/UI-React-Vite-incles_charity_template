@@ -15,7 +15,8 @@ const HeroSection = () => {
       description: "Every donation, every volunteer hour, and every act of kindness creates ripples of positive change in communities around the world.",
       image: "/src/assets/resource/hero/image-1.jpg",
       cta: "Start Donating",
-      stats: { number: "50K+", label: "Lives Changed" }
+      stats: { number: "50K+", label: "Lives Changed" },
+      animation: "fadeZoom"
     },
     {
       id: 2,
@@ -24,7 +25,8 @@ const HeroSection = () => {
       description: "Help us provide quality education and learning opportunities to children in underserved communities worldwide.",
       image: "/src/assets/resource/hero/image-2.jpg",
       cta: "Support Education",
-      stats: { number: "1000+", label: "Schools Built" }
+      stats: { number: "1000+", label: "Schools Built" },
+      animation: "slideLeft"
     },
     {
       id: 3,
@@ -33,15 +35,16 @@ const HeroSection = () => {
       description: "Access to clean water is a basic human right. Join us in bringing safe, clean water to communities in need.",
       image: "/src/assets/resource/hero/image-3.jpg",
       cta: "Provide Water",
-      stats: { number: "200+", label: "Wells Drilled" }
+      stats: { number: "200+", label: "Wells Drilled" },
+      animation: "slideUp"
     }
   ]
 
-  // Auto-advance slides
+  // Auto-advance slides with varied timing
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length)
-    }, 6000)
+    }, 7000) // Slightly longer for better viewing
     return () => clearInterval(timer)
   }, [slides.length])
 
@@ -57,25 +60,97 @@ const HeroSection = () => {
     setCurrentSlide(index)
   }
 
+  // Animation variants for different slide effects
+  const getAnimationVariants = (animationType) => {
+    switch (animationType) {
+      case 'fadeZoom':
+        return {
+          initial: { opacity: 0, scale: 1.2 },
+          animate: { opacity: 1, scale: 1 },
+          exit: { opacity: 0, scale: 0.8 }
+        }
+      case 'slideLeft':
+        return {
+          initial: { opacity: 0, x: 100, scale: 1.1 },
+          animate: { opacity: 1, x: 0, scale: 1 },
+          exit: { opacity: 0, x: -100, scale: 0.9 }
+        }
+      case 'slideUp':
+        return {
+          initial: { opacity: 0, y: 100, scale: 1.1 },
+          animate: { opacity: 1, y: 0, scale: 1 },
+          exit: { opacity: 0, y: -100, scale: 0.9 }
+        }
+      default:
+        return {
+          initial: { opacity: 0, scale: 1.1 },
+          animate: { opacity: 1, scale: 1 },
+          exit: { opacity: 0, scale: 0.9 }
+        }
+    }
+  }
+
+  const currentAnimation = getAnimationVariants(slides[currentSlide].animation)
+
   return (
     <section className="relative h-screen overflow-hidden">
-      {/* Background Slides */}
+      {/* Background Slides with Enhanced Animations */}
       <div className="absolute inset-0">
         <AnimatePresence mode="wait">
           <motion.div
-            key={currentSlide}
-            initial={{ opacity: 0, scale: 1.1 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-            transition={{ duration: 1 }}
+            key={`bg-${currentSlide}`}
+            initial={currentAnimation.initial}
+            animate={currentAnimation.animate}
+            exit={currentAnimation.exit}
+            transition={{ 
+              duration: 1.2, 
+              ease: [0.25, 0.46, 0.45, 0.94] // Custom easing for smoother transitions
+            }}
             className="absolute inset-0"
           >
             <div 
-              className="w-full h-full bg-cover bg-center bg-no-repeat"
+              className="w-full h-full bg-cover bg-center bg-no-repeat transform-gpu"
               style={{ 
-                backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('${slides[currentSlide].image}')` 
+                backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('${slides[currentSlide].image}')`,
+                filter: 'brightness(1.1) contrast(1.1)' // Enhanced image quality
               }}
             />
+            
+            {/* Animated overlay patterns */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1.5 }}
+              className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-transparent to-purple-600/20"
+            />
+            
+            {/* Floating particles effect */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+              {[...Array(6)].map((_, i) => (
+                <motion.div
+                  key={`particle-${currentSlide}-${i}`}
+                  initial={{ 
+                    opacity: 0, 
+                    y: 100, 
+                    x: Math.random() * window.innerWidth,
+                    scale: 0
+                  }}
+                  animate={{ 
+                    opacity: [0, 0.6, 0], 
+                    y: -100, 
+                    scale: [0, 1, 0]
+                  }}
+                  transition={{ 
+                    duration: 4 + Math.random() * 2,
+                    delay: Math.random() * 2,
+                    repeat: Infinity,
+                    repeatDelay: Math.random() * 3
+                  }}
+                  className="absolute w-2 h-2 bg-white rounded-full"
+                />
+              ))}
+            </div>
           </motion.div>
         </AnimatePresence>
       </div>
