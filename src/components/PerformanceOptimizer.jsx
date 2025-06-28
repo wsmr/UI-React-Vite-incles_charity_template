@@ -68,30 +68,34 @@ const PerformanceOptimizer = () => {
             })
           }
           
-          // Override src setter to implement retry logic
-          try {
-          Object.defineProperty(element, 'src', {
-            get() { return originalSrc },
-            set(value) {
-              if (value && !imageCache.has(value)) {
-                loadWithRetry(value)
-                  .then(() => {
+          // Override src setter to implement retry logic (only if not already defined)
+          const descriptor = Object.getOwnPropertyDescriptor(element, 'src')
+          if (!descriptor || descriptor.configurable !== false) {
+            try {
+              Object.defineProperty(element, 'src', {
+                get() { return originalSrc },
+                set(value) {
+                  if (value && !imageCache.has(value)) {
+                    loadWithRetry(value)
+                      .then(() => {
+                        element.setAttribute('src', value)
+                      })
+                      .catch(error => {
+                        console.warn('Image loading failed:', error)
+                        // Fallback to a placeholder or default image
+                        element.setAttribute('src', '/src/assets/placeholder.jpg')
+                      })
+                  } else {
                     element.setAttribute('src', value)
-                  })
-                  .catch(error => {
-                    console.warn('Image loading failed:', error)
-                    // Fallback to a placeholder or default image
-                    element.setAttribute('src', '/src/assets/placeholder.jpg')
-                  })
-              } else {
-                element.setAttribute('src', value)
-              }
+                  }
+                },
+                configurable: true
+              })
+            } catch (error) {
+              console.warn('Could not override src property:', error)
+              // Fallback: just set the src normally
+              element.setAttribute('src', originalSrc)
             }
-          })
-          } catch (error) {
-            console.error("Failed to redefine 'src' property:", error);
-            // Fallback: Just use the original element's src property
-            element.src = originalSrc; // Or handle the image loading differently
           }
         }
         

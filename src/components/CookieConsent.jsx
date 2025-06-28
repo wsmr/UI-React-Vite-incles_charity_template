@@ -6,12 +6,31 @@ import { motion, AnimatePresence } from 'framer-motion'
 const CookieConsent = () => {
   const [showBanner, setShowBanner] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
+  const [isDarkMode, setIsDarkMode] = useState(false)
   const [preferences, setPreferences] = useState({
     necessary: true, // Always true, cannot be disabled
     analytics: false,
     marketing: false,
     functional: false
   })
+
+  // Monitor dark mode changes
+  useEffect(() => {
+    const checkDarkMode = () => {
+      setIsDarkMode(document.documentElement.classList.contains('dark'))
+    }
+    
+    checkDarkMode()
+    
+    // Watch for class changes on html element
+    const observer = new MutationObserver(checkDarkMode)
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    })
+    
+    return () => observer.disconnect()
+  }, [])
 
   // Cookie categories with detailed information
   const cookieCategories = {
@@ -192,23 +211,23 @@ const CookieConsent = () => {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 100, opacity: 0 }}
             transition={{ duration: 0.5 }}
-            className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-2xl z-50"
+            className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 shadow-2xl z-[55]"
           >
             <div className="container mx-auto px-4 py-6">
               <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
                 <div className="flex-1">
                   <div className="flex items-center mb-2">
                     <Cookie className="w-6 h-6 text-blue-600 mr-2" />
-                    <h3 className="text-lg font-semibold text-gray-900">
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                       We Value Your Privacy
                     </h3>
                   </div>
-                  <p className="text-gray-600 text-sm leading-relaxed">
+                  <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
                     We use cookies to enhance your browsing experience, serve personalized content, 
                     and analyze our traffic. By clicking "Accept All", you consent to our use of cookies. 
                     You can manage your preferences or learn more about our cookie policy.
                   </p>
-                  <div className="flex items-center mt-2 text-xs text-gray-500">
+                  <div className="flex items-center mt-2 text-xs text-gray-500 dark:text-gray-400">
                     <Shield className="w-4 h-4 mr-1" />
                     <span>GDPR & CCPA Compliant</span>
                   </div>
@@ -218,7 +237,7 @@ const CookieConsent = () => {
                   <Button
                     onClick={() => setShowSettings(true)}
                     variant="outline"
-                    className="text-sm px-4 py-2 border-gray-300 text-gray-700 hover:bg-gray-50"
+                    className="text-sm px-4 py-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800"
                   >
                     <Settings className="w-4 h-4 mr-1" />
                     Customize
@@ -226,7 +245,7 @@ const CookieConsent = () => {
                   <Button
                     onClick={acceptNecessary}
                     variant="outline"
-                    className="text-sm px-4 py-2 border-gray-300 text-gray-700 hover:bg-gray-50"
+                    className="text-sm px-4 py-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800"
                   >
                     Necessary Only
                   </Button>
@@ -271,17 +290,17 @@ const CookieConsent = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 bg-black bg-opacity-50 z-[60] flex items-center justify-center p-4"
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-white rounded-lg shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+              className="bg-white dark:bg-gray-900 rounded-lg shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
             >
               <div className="p-6">
                 <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-2xl font-bold text-gray-900">Cookie Preferences</h2>
+                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Cookie Preferences</h2>
                   <Button
                     onClick={() => setShowSettings(false)}
                     variant="ghost"

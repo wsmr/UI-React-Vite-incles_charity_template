@@ -49,8 +49,8 @@ const CausesSection = () => {
     {
       id: 2,
       category: 'healthcare',
-      title: 'Clean Water Initiative',
-      description: 'Building wells and water purification systems to provide clean, safe drinking water to communities in need.',
+      title: 'Mobile Medical Clinics',
+      description: 'Bringing essential healthcare services to remote communities that lack access to medical facilities and trained professionals.',
       image: '/src/assets/resource/couses/image-3.jpg',
       raised: 32000,
       goal: 50000,
@@ -279,16 +279,33 @@ const CausesSection = () => {
 
                 {/* CTA Buttons */}
                 <div className="flex gap-3">
-                  <Button className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-full">
-                    <Heart className="w-4 h-4 mr-2" />
-                    Donate Now
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    className="px-4 border-2 border-gray-300 hover:bg-gray-50 rounded-full"
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="flex-1"
                   >
-                    <ArrowRight className="w-4 h-4" />
-                  </Button>
+                    <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-full shadow-md hover:shadow-lg transition-all duration-300 relative overflow-hidden group">
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        initial={false}
+                      />
+                      <span className="relative z-10 flex items-center justify-center">
+                        <Heart className="w-4 h-4 mr-2" />
+                        Donate Now
+                      </span>
+                    </Button>
+                  </motion.div>
+                  <motion.div
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    <Button 
+                      variant="outline" 
+                      className="px-4 border-2 border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-full transition-all duration-300"
+                    >
+                      <ArrowRight className="w-4 h-4" />
+                    </Button>
+                  </motion.div>
                 </div>
               </div>
             </motion.div>

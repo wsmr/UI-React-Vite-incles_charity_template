@@ -9,20 +9,24 @@ import PerformanceOptimizer from './components/PerformanceOptimizer'
 import SecurityFeatures from './components/SecurityFeatures'
 import ModernFeatures from './components/ModernFeatures'
 import CookieConsent from './components/CookieConsent'
+import ScrollToTop from './components/ScrollToTop'
+import ContentProtection from './components/ContentProtection'
+import Preloader from './components/Preloader'
 import './App.css'
 
 function App() {
   return (
     <div className="min-h-screen">
+      <Preloader />
+      <PerformanceOptimizer />
+      <SecurityFeatures />
+      <ModernFeatures />
       <SEOHead 
         title="Incles - Modern Charity Platform | Making a Difference Since 1999"
         description="Join Incles in creating positive change worldwide. Support education, healthcare, and environmental initiatives. 98% of donations go directly to programs. Donate now and make a difference."
         keywords="charity, donation, nonprofit, education, healthcare, environment, volunteer, fundraising, community development, social impact, NGO"
         structuredData={getOrganizationStructuredData()}
       />
-      <PerformanceOptimizer />
-      <SecurityFeatures />
-      <ModernFeatures />
       <CookieConsent />
       <Header />
       <main>
@@ -32,6 +36,10 @@ function App() {
         <TestimonialsSection />
       </main>
       <Footer />
+      
+      {/* Fixed Components */}
+      <ScrollToTop />
+      <ContentProtection />
     </div>
   )
 }

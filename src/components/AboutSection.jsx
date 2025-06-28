@@ -2,10 +2,17 @@ import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Heart, Users, Target, Award, ArrowRight, Play } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { useScrollAnimation, fadeInUp, fadeInLeft, fadeInRight, staggerContainer, staggerItem } from '../hooks/useScrollAnimation'
 
 const AboutSection = () => {
   const [activeTab, setActiveTab] = useState('mission')
   const [darkMode, setDarkMode] = useState(false)
+
+  // Scroll animation hooks
+  const titleAnimation = useScrollAnimation({ threshold: 0.2 })
+  const statsAnimation = useScrollAnimation({ threshold: 0.3 })
+  const tabsAnimation = useScrollAnimation({ threshold: 0.2 })
+  const cardAnimation = useScrollAnimation({ threshold: 0.3 })
 
   // Check for dark mode
   useEffect(() => {
@@ -102,10 +109,10 @@ const AboutSection = () => {
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
+          ref={titleAnimation.elementRef}
+          variants={fadeInUp}
+          initial="hidden"
+          animate={titleAnimation.isVisible ? "visible" : "hidden"}
           className="text-center mb-16"
         >
           <div className="flex items-center justify-center space-x-2 mb-4">
@@ -130,19 +137,16 @@ const AboutSection = () => {
 
         {/* Stats Section */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          viewport={{ once: true }}
+          ref={statsAnimation.elementRef}
+          variants={staggerContainer}
+          initial="hidden"
+          animate={statsAnimation.isVisible ? "visible" : "hidden"}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20"
         >
           {stats.map((stat, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
+              variants={staggerItem}
               className="text-center group"
             >
               <div className="relative mb-6">
